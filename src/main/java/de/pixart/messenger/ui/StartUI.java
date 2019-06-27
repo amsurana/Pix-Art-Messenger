@@ -42,13 +42,7 @@ public class StartUI extends AppCompatActivity
         SharedPreferences FirstStart = getApplicationContext().getSharedPreferences(PREF_FIRST_START, Context.MODE_PRIVATE);
         long FirstStartTime = FirstStart.getLong(PREF_FIRST_START, 0);
         if (EasyPermissions.hasPermissions(this, perms)) {
-            // Already have permission, start ConversationsActivity
-            Log.d(Config.LOGTAG, "All permissions granted, starting " + getString(R.string.app_name) + "(" + FirstStartTime + ")");
-            Intent intent = new Intent(this, ConversationsActivity.class);
-            intent.putExtra(PREF_FIRST_START, FirstStartTime);
-            startActivity(intent);
-            overridePendingTransition(R.animator.fade_in, R.animator.fade_out);
-            finish();
+           loadNextScreen(FirstStartTime);
         } else {
             // set first start to 0 if there are permissions to request
             Log.d(Config.LOGTAG, "Requesting required permissions");
@@ -59,6 +53,25 @@ public class StartUI extends AppCompatActivity
             EasyPermissions.requestPermissions(this, getString(R.string.request_permissions_message),
                     NeededPermissions, perms);
         }
+    }
+
+    private void loadNextScreen(long FirstStartTime) {
+
+        String PREF_FIRST_START = "FirstStart";
+        // Already have permission, start ConversationsActivity
+//        Log.d(Config.LOGTAG, "All permissions granted, starting " + getString(R.string.app_name) + "(" + FirstStartTime + ")");
+//        Intent intent = new Intent(this, ConversationsActivity.class);
+//        intent.putExtra(PREF_FIRST_START, FirstStartTime);
+//        startActivity(intent);
+//        overridePendingTransition(R.animator.fade_in, R.animator.fade_out);
+//        finish();
+
+        Log.d(Config.LOGTAG, "All permissions granted, starting " + getString(R.string.app_name) + "(" + FirstStartTime + ")");
+        Intent intent = new Intent(this, PasscodeActivity.class);
+        intent.putExtra(PREF_FIRST_START, FirstStartTime);
+        startActivity(intent);
+        overridePendingTransition(R.animator.fade_in, R.animator.fade_out);
+        finish();
     }
 
 

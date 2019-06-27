@@ -340,5 +340,7 @@
             android:authorities="${applicationId}.barcodes"
             android:exported="false"
             android:grantUriPermissions="true" />
+
+        <activity android:name=".ui.PasscodeActivity" />
     </application>
 </manifest>

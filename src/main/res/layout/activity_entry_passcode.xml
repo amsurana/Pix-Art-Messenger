@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:layout_marginTop="40dp"
+    android:orientation="vertical">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:weightSum="6">
+
+        <Button
+            android:id="@+id/change"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_gravity="right"
+            android:layout_marginRight="10dp"
+            android:layout_weight="0.5"
+            android:background="@null"
+            android:gravity="right"
+            android:text="Change"
+            android:textColor="@color/accent" />
+
+        <com.andrognito.pinlockview.IndicatorDots
+            android:id="@+id/indicator_dots"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            app:dotFilledBackground="@color/accent"
+            app:dotSpacing="16dp"
+            app:pinLength="6" />
+
+        <com.andrognito.pinlockview.PinLockView
+            android:id="@+id/pin_lock_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="4.5"
+            app:keypadButtonSize="80dp"
+            app:keypadDeleteButtonSize="24dp"
+            app:keypadHorizontalSpacing="30dp"
+            app:keypadShowDeleteButton="true"
+            app:keypadTextColor="@color/accent"
+            app:keypadTextSize="24sp"
+            app:keypadVerticalSpacing="24dp"
+            app:pinLength="6" />
+    </LinearLayout>
+</LinearLayout>
