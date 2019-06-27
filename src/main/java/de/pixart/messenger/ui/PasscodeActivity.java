@@ -120,7 +120,6 @@ public class PasscodeActivity extends AppCompatActivity {
             MessageDigest md = MessageDigest.getInstance("MD5");
             byte[] bt = md.digest(pin.getBytes());
             String str = new String(bt);
-            Log.i("PPP", "P: " + str);
             SharedPreferences prefs = getApplicationContext().getSharedPreferences(PASSCODE_PREFS_FILE, Context.MODE_PRIVATE);
             prefs.edit().putString(PASSCODE_KEY, str).apply();
         } catch (NoSuchAlgorithmException e) {
@@ -135,8 +134,6 @@ public class PasscodeActivity extends AppCompatActivity {
             MessageDigest md = MessageDigest.getInstance("MD5");
             byte[] bt = md.digest(pin.getBytes());
             String str = new String(bt);
-
-            Log.i("PPP", "P: " + str);
             return prefs.getString(PASSCODE_KEY, "").equalsIgnoreCase(str);
         } catch (Exception e) {
             e.printStackTrace();
