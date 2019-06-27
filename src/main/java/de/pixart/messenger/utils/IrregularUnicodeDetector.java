@@ -83,23 +83,23 @@ public class IrregularUnicodeDetector {
             SpannableString local = new SpannableString(jid.getLocal());
             colorize(local, patternTuple.local, color);
             builder.append(local);
-            builder.append('@');
+            //builder.append('@');
         }
-        if (jid.getDomain() != null) {
-            String[] labels = jid.getDomain().split("\\.");
-            for (int i = 0; i < labels.length; ++i) {
-                SpannableString spannableString = new SpannableString(labels[i]);
-                colorize(spannableString, patternTuple.domain.get(i), color);
-                if (i != 0) {
-                    builder.append('.');
-                }
-                builder.append(spannableString);
-            }
-        }
-        if (builder.length() != 0 && jid.getResource() != null) {
-            builder.append('/');
-            builder.append(jid.getResource());
-        }
+//        if (jid.getDomain() != null) {
+//            String[] labels = jid.getDomain().split("\\.");
+//            for (int i = 0; i < labels.length; ++i) {
+//                SpannableString spannableString = new SpannableString(labels[i]);
+//                colorize(spannableString, patternTuple.domain.get(i), color);
+//                if (i != 0) {
+//                    builder.append('.');
+//                }
+//                builder.append(spannableString);
+//            }
+//        }
+//        if (builder.length() != 0 && jid.getResource() != null) {
+//            builder.append('/');
+//            builder.append(jid.getResource());
+//        }
         return builder;
     }
 
