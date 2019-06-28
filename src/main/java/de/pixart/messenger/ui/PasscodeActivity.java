@@ -38,7 +38,9 @@ public class PasscodeActivity extends AppCompatActivity {
     private PinLockListener mPinLockListener = new PinLockListener() {
         @Override
         public void onComplete(String pin) {
-            processPin(pin);
+            if (pin != null && pin.length() == 6) {
+                processPin(pin);
+            }
 
         }
 
