@@ -26,29 +26,28 @@ import me.drakeet.support.toast.ToastCompat;
  * Created by Amit S.
  */
 public class PasscodeActivity extends AppCompatActivity {
-
+    
     private static final String PASSCODE_PREFS_FILE = "prefsFile";
     private static final String PASSCODE_KEY = "k2m3";
-
+    
     private static final String TAG = "PasscodeActivity";
     private PinLockView mPinLockView;
-
+    
     private String intermediatePin = "";
-
+    
     private PinLockListener mPinLockListener = new PinLockListener() {
         @Override
         public void onComplete(String pin) {
             if (pin != null && pin.length() == 6) {
                 processPin(pin);
             }
-
         }
-
+        
         @Override
         public void onEmpty() {
-
+        
         }
-
+        
         @Override
         public void onPinChange(int pinLength, String intermediatePin) {
 //            if (pinLength == 6) {
@@ -56,30 +55,30 @@ public class PasscodeActivity extends AppCompatActivity {
 //            }
         }
     };
-
-
+    
+    
     private IndicatorDots mIndicatorDots;
     private boolean update = false;
     private boolean validated = false;
-
+    
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_entry_passcode);
-
+        
         initPasscodeView();
-
+        
         if (!hasPasscode()) {
             ToastCompat.makeText(this, "Set new Passcode first", Toast.LENGTH_SHORT).show();
             findViewById(R.id.change).setVisibility(View.INVISIBLE);
         }
     }
-
+    
     private boolean hasPasscode() {
         SharedPreferences prefs = getApplicationContext().getSharedPreferences(PASSCODE_PREFS_FILE, Context.MODE_PRIVATE);
         return prefs.contains(PASSCODE_KEY);
     }
-
+    
     private void processPin(String pin) {
         if (!hasPasscode() || update) {
             if (intermediatePin == null || intermediatePin.length() == 0) {
@@ -102,21 +101,29 @@ public class PasscodeActivity extends AppCompatActivity {
                 savePin(pin);
                 restartThisScreen();
                 return;
+            } else {
+                ToastCompat.makeText(this, "Passcode mismatch. Enter the code again", Toast.LENGTH_SHORT).show();
+                mPinLockView.resetPinLockView();
             }
         } else if (isSame(pin)) {
-            nextScreen();
+            if ("NO_NEXT".equalsIgnoreCase(getIntent().getAction())) {
+                setResult(RESULT_OK);
+                finish();
+            } else {
+                nextScreen();
+            }
         } else {
             ToastCompat.makeText(this, "Passcode does not match. Enter the code again", Toast.LENGTH_SHORT).show();
             mPinLockView.resetPinLockView();
         }
     }
-
+    
     private void restartThisScreen() {
         Intent intent = new Intent(this, PasscodeActivity.class);
         startActivity(intent);
         finish();
     }
-
+    
     private void savePin(String pin) {
         try {
             MessageDigest md = MessageDigest.getInstance("MD5");
@@ -127,9 +134,9 @@ public class PasscodeActivity extends AppCompatActivity {
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
-
+        
     }
-
+    
     private boolean isSame(String pin) {
         try {
             SharedPreferences prefs = getApplicationContext().getSharedPreferences(PASSCODE_PREFS_FILE, Context.MODE_PRIVATE);
@@ -142,13 +149,13 @@ public class PasscodeActivity extends AppCompatActivity {
         }
         return false;
     }
-
+    
     private void initPasscodeView() {
         mPinLockView = (PinLockView) findViewById(R.id.pin_lock_view);
         mPinLockView.setPinLockListener(mPinLockListener);
         mIndicatorDots = (IndicatorDots) findViewById(R.id.indicator_dots);
         mPinLockView.attachIndicatorDots(mIndicatorDots);
-
+        
         findViewById(R.id.change).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -158,7 +165,7 @@ public class PasscodeActivity extends AppCompatActivity {
             }
         });
     }
-
+    
     private void nextScreen() {
         String PREF_FIRST_START = "FirstStart";
         SharedPreferences FirstStart = getApplicationContext().getSharedPreferences(PREF_FIRST_START, Context.MODE_PRIVATE);

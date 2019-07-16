@@ -43,6 +43,7 @@
             android:layout_height="0dp"
             android:layout_weight="4.5"
             app:keypadButtonSize="80dp"
+            app:keypadDeleteButtonPressedColor="@color/accent"
             app:keypadDeleteButtonSize="24dp"
             app:keypadHorizontalSpacing="30dp"
             app:keypadShowDeleteButton="true"
