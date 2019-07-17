@@ -58,6 +58,7 @@ import de.pixart.messenger.entities.Message;
 import de.pixart.messenger.persistance.FileBackend;
 import de.pixart.messenger.ui.ConversationsActivity;
 import de.pixart.messenger.ui.EditAccountActivity;
+import de.pixart.messenger.ui.PasscodeActivity;
 import de.pixart.messenger.ui.TimePreference;
 import de.pixart.messenger.utils.AccountUtils;
 import de.pixart.messenger.utils.Compatibility;
@@ -955,7 +956,7 @@ public class NotificationService {
 
     private PendingIntent createOpenConversationsIntent() {
         try {
-            return PendingIntent.getActivity(mXmppConnectionService, 0, new Intent(mXmppConnectionService, ConversationsActivity.class), 0);
+            return PendingIntent.getActivity(mXmppConnectionService, 0, new Intent(mXmppConnectionService, PasscodeActivity.class), 0);
         } catch (Exception e) {
             e.printStackTrace();
             return null;
