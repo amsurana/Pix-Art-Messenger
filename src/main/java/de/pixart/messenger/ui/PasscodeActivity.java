@@ -74,6 +74,11 @@ public class PasscodeActivity extends AppCompatActivity {
         }
     }
     
+    @Override
+    public void onBackPressed() {
+        ToastCompat.makeText(this, "Cannot exit the passcode screen", Toast.LENGTH_SHORT).show();
+    }
+    
     private boolean hasPasscode() {
         SharedPreferences prefs = getApplicationContext().getSharedPreferences(PASSCODE_PREFS_FILE, Context.MODE_PRIVATE);
         return prefs.contains(PASSCODE_KEY);
